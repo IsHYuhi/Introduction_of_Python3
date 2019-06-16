@@ -1,1 +1,2 @@
 # Introduction_of_Python3
+pythonの基本文法の復習
