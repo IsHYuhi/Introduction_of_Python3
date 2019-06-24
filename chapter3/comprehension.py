@@ -51,3 +51,20 @@ cells = [(row, col) for row in rows if row % 2 == 0 for col in cols if col %2 ==
 for cell in cells:
     print(cell)
 
+
+print('\nジェネレータ内包表記')
+#実はタプルには内包表記がない、リスト内包表記のすみかっこを普通のかっこに変えれば、タプル内包表記ができると思われたかもしれない
+number_thing = (number for number in range(1, 6))
+print(number_thing)
+#()ないのものはジェネレータ内包表記であり、とこのようにジェネレータオブジェクトを返してしまう
+print('\nジェネレータオブジェクトは直接forループで処理できる')
+for number in number_thing:
+    print(number)
+
+print('\nジェネレータ包括表記をlist()でラップすればリスト内包表記のように動作させられる')
+print('\nジェネレータは一度しか実行できない')
+number_thing = (number for number in range(1, 6))
+number_list = list(number_thing)
+print(number_list)
+number_list = list(number_thing)
+print(number_list)
