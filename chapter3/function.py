@@ -91,9 +91,103 @@ def nonbuggy(arg, result=None):
 nonbuggy('a')
 nonbuggy('b')
 
+print("\n*による位置引数のタプル化")
+#ポインタを連想するかもしれないがpythonにポインタはない。
+#この機能は、print()のように可変個の実引数を受け付ける関数を書く時に役立つ
+#必須の位置引数がある場合には、位置引数の最後に*argsを書くと、必須引数以外の全ての位置引数を一つにまとめることができる。
+#*を使う時タプル仮引数をargsと呼ぶ必要は特にないが、Pythonコミュニティでは一般的な慣習となっている
+def print_args(*args):
+    print('Positional argument tuple: ', args)
+
+print_args()
+print_args(3, 2, 1, 'wait!', 'uh...')
+
+def print_more(required1, required2, *args):
+    print('Need this one: ', required1)
+    print('Need this one too: ', required2)
+    print('All the rest: ', args)
+
+print_more('cap', 'gloves', 'scarf', 'monocle', 'mustache wax')
+
+print("\n**によるキーワード引数の辞書化")
+#**を使えば、キーワード引数を一個の辞書にまとめることができる。引数の名前は辞書のキー、引数の値は辞書の値になる
+#一般的にこの引数を**kwargsと呼ぶことが多い
+'''位置引数をまとめる*argsと**kwargsを併用する場合、この二つはこの順序で並べなければならない'''
+def print_kwargs(**kwargs):
+    print('Keyword arguments: ', kwargs)
+
+print_kwargs(wine='merlot', entree='mutton', dessert='macaroon')
+
+print('\ndocstring')
+#関数本体の先頭に文字列を組み込めば、関数定義にドキュメントをつけることができる
+#これを関数のdocstringと呼ぶ
+
+def echo_2(anything):
+    'echo_2は、与えられた入力引数を返す'
+    return anything
+
+def print_if_true(thing, check):
+    '''
+    第二引数が真なら、第一引数を表示する
+    処理内容:
+        1. *第2*引数が真かどうかをチェックする
+        2. 真なら*第1*引数を表示する
+    '''
+    if check:
+        print(thing)
+
+print('docstringを表示するためにはhelp()関数を呼び出す、綺麗に成形されたdocstringが返される')
+
+#help(echo_2) #実行するたびに表示されるのでここではコメントアウト
+print("整形前の素のままのdocstringを見たい場合には次のように書く")
+print(echo_2.__doc__)
 
 
+print('\npythonでは全てのものがオブジェクトである、もちろん関数も含まれる')
+
+def answer():
+    print(42)
+
+def run_something(func):
+    func()
+print('pythonはかっこがなければ関数を他のオブジェクトと同じように扱う')
+run_something(answer)
+print(type(run_something))
 
 
+def add_args(arg1, arg2):
+    print(arg1+arg2)
+print(type(add_args))
+#add_argsのタイプはfunction
 
+def run_something_with_args(func, arg1, arg2):
+    func(arg1, arg2)
 
+run_something_with_args(add_args, 5, 9)
+
+print("\nこれに*args, **kwargsのテクニックを組み合わせてみる")
+
+def sum_args(*args):
+    return sum(args)
+
+def run_with_positional_args(func, *args):
+    return func(*args) #*をつける
+
+print(run_with_positional_args(sum_args, 1, 2, 3, 4))
+
+print("\n関数内関数")
+print('関数を他の関数のなかで定義することができる')
+def outer(a, b):
+    def inner(c, d):
+        return c+d
+    return inner(a, b)
+
+print(outer(4, 7))
+
+print("\n関数内関数はループやコードの重複を避けるために役立つ")
+def knights(saying):
+    def inner(quote):
+        return "We are the knights who say: '%s' " % quote
+    return inner(saying)
+
+print(knights('Ni!'))
