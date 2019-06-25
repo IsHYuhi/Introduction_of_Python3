@@ -191,3 +191,35 @@ def knights(saying):
     return inner(saying)
 
 print(knights('Ni!'))
+
+
+print("\nクロージャ")
+print('クロージャとは、他の関数によって動的に生成される関数で、その関数の外で作られた変数の値を覚えておいたり、変えたりできる')
+def knights2(saying):
+    def inner2():
+        return "We are the knights who say: '%s' " % saying
+    return inner2
+#inner2()はknight2に渡されたsayingの値を知っており、覚えている。
+#inner2は動的に作成された関数であり、どのように作成されたかを覚えている。これがすなわちクロージャである。
+a = knights2('Duck')
+b = knights2('Hasenpfeffer')
+print(a())
+print(b())
+
+print('\n無名関数:ラムダ関数')
+print('ラムダ関数は、一つの文で表現される無名関数である')
+def edit_story(words, func):
+    for word in words:
+        print(func(word))
+#この関数を試すには、単語のリストとここの単語に適用される関数が必要である。
+stairs = ['thud', 'meow', 'thud', 'hiss']
+
+def enliven(word):
+    return word.capitalize() + '!'
+
+edit_story(stairs, enliven)
+
+print('\nenliven()関数はとても短いのでラムダに取り替える')
+edit_story(stairs, lambda word: word.capitalize() +'!')
+#ラムダを使うよりも本物の関数を使った方がコードが明確になることが多いが、ラムダを使わなければ小さな関数を作っていくつも名前を覚えておかなければならなくなる。
+
