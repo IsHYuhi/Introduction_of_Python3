@@ -77,4 +77,52 @@ for food, count in dict_counter.items():
     print(food, count)
 
 
+print("\nCounter()による要素数の計算")
+
+from collections import Counter
+breakfast = ['spam', 'spam', 'eggs', 'spam']
+breakfast_counter = Counter(breakfast)
+print(breakfast_counter)#Counterで返す
+
+print('most_common()は全ての要素を降順で返す。引数で整数を指定すると最上位から数えてその個数分だけを表示する')
+#タプルのリストで返す
+print(breakfast_counter.most_common())
+print(breakfast_counter.most_common(1))
+
+
+print('\nカウンタを結合することもできる')
+
+
+lunch = ['eggs', 'eggs', 'bacon']
+lunch_counter = Counter(lunch)
+print('lunch:',lunch_counter)
+print('breakfast:',breakfast_counter)
+print(breakfast_counter + lunch_counter)
+print('''朝食では使われているが昼食では使われていないもの -の要素は表示されない''')
+print(breakfast_counter - lunch_counter)
+print('''昼食では使われているが朝食では使われていないもの''')
+print(lunch_counter - breakfast_counter)
+print('''共通要素''')
+print(lunch_counter & breakfast_counter)
+print('''和集合''')
+print(lunch_counter | breakfast_counter)
+
+print('\nOrderedDict()によるキー順のソート')
+'''
+辞書のキーの順序は予測不可能である
+'''
+quotes = {
+    'Moe': 'A wise guy, huh?',
+    'Larry': 'Ow',
+    'Curly': 'Nyuk nyuk!',
+    }
+for stooge in quotes:
+    print(stooge)
+
+print('\nOrderdDict()は、キーが追加された順序を覚えている')
+
+from collections import OrderedDict
+quotes = OrderedDict([('Moe','A wise guy, huh?'), ('Larry', 'Ow'), ('Curly', 'Nyuk nyuk!')])
+for stooge in quotes:
+    print(stooge)
 
